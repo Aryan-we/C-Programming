@@ -1,0 +1,116 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#include<stdlib.h>
+typedef struct node{
+    int data;
+    struct node *next;
+}node;
+node * getnode(int x){
+    node * ptr=(node *)malloc(sizeof(node));
+    ptr->data=x;
+    ptr->next=NULL;
+    return ptr;
+}
+node * first=NULL;
+node *last=NULL;
+
+node * createLL(){
+    int n;
+    printf("enter no.of nodes : ");
+    scanf("%d",&n);
+    printf("enter values of node");
+    for(int i=0;i<n;i++){
+       
+        int x;
+        scanf("%d",&x);
+        node *n1=getnode(x);
+        if (first==NULL){
+            first=n1;
+            last=n1;
+        }else{
+            last->next=n1;
+            last=n1;
+
+        }   
+            
+    }
+     return first;   
+    
+    
+    
+}
+void printll(node *n){
+    while(n!=NULL){
+        printf("%d->",n->data);
+        n=n->next;
+    }
+    printf("NULL\n");
+}
+void insertBeg(int x){
+    node *n=getnode(x);
+    n->next=first;
+    first=n;
+    
+    
+}
+void insertEnd(int x){
+    node *n=getnode(x);
+    node *tmp=first;
+    while(tmp->next!=NULL){
+        tmp=tmp->next;
+    }
+    tmp->next=n;
+    last=n;
+    
+    
+}
+void deleteBeg(){
+    node *n=first;
+    first=n->next;
+    free(n);
+    
+    
+}
+void deleteEnd(){
+    node *tmp1=NULL;
+    node *tmp2=first;
+    if(tmp2->next==NULL){
+        first=NULL;
+        free(tmp2);
+        return;
+        
+    }
+    if(tmp2==NULL){
+        printf("linked list is empty");
+        return;
+    }
+    while(tmp2->next!=NULL){
+        tmp1=tmp2;
+        tmp2=tmp2->next;
+    }
+    tmp1->next=NULL;
+    free(tmp2);
+    last=tmp1;
+    
+    
+    
+}
+
+int main() {
+    node *ptr=createLL();
+    printll(ptr);
+    insertBeg(100);
+    printll(first);
+    insertEnd(1000);
+    printll(first);
+    deleteBeg();
+    deleteBeg();
+    
+    printll(first);
+    deleteEnd();
+    printll(first);
+
+    
+
+    return 0;
+}
